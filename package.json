@@ -1,0 +1,23 @@
+{
+  "name": "constructor-word-guess",
+  "version": "1.0.0",
+  "description": "This is my attempt at a node CLI word guess game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BlackMG27/constructor-word-guess.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BlackMG27/constructor-word-guess/issues"
+  },
+  "homepage": "https://github.com/BlackMG27/constructor-word-guess#readme",
+  "dependencies": {
+    "inquirer": "^6.2.2"
+  }
+}
