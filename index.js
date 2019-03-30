@@ -56,6 +56,7 @@ function startGame() {
     }
 
     console.log(`${numberGuess} Guesses Left!`);
+    console.log(newWord.log());
     inquire.prompt([
 
         {
