@@ -21,7 +21,8 @@ const words = [
     "superman",
     "xena",
     "pokemon",
-    "sailor moon"
+    "sailor moon",
+    "cowboy bebop"
 ];
 //make the letters only alphabet. no special characters
 let letters = 'abcdefghijklmnopqrstuvwxyz';
@@ -64,53 +65,79 @@ function startGame() {
         needsNewWord === false;
 
     }
+    if (numberGuess > 0 || counter < wordGuess.length) {
+        console.log(`${numberGuess} Guesses Left!`);
+        newWord.log();
+        inquire.prompt([
 
-    console.log(`${numberGuess} Guesses Left!`);
-    newWord.log();
-    inquire.prompt([
+            {
+                name: 'guess',
+                message: 'Guess a letter between a & z!',
+                type: 'input'
+            },
 
-        {
-            name: 'guess',
-            message: 'Guess a letter between a & z!',
-            type: 'input'
-        },
+        ]).then(function (ans) {
+            //if the letter has shown up in the guesses
 
-    ]).then(function (ans) {
-        //if the letter has shown up in the guesses
-
-        console.log(ans.guess);
-        if (!letters.includes(ans.guess) || ans.guess.length > 1) {
-            console.log('\n Please Try Again \n');
-            startGame();
-        } else if (lettersChecked.includes(ans.guess) || ans.guess === '') {
-            console.log('\n You already entered that and/or You entered nothing.\n Please Try again.');
-            startGame();
-        }
-        //check to see if the letter is correct or incorrect
-        else {
-            lettersChecked.push(ans.guess);
-            //puts the letter to the word function
-            newWord.whetherUserGuessed(ans.guess);
-            //compares
-            if (!wordGuess.includes(ans.guess)) {
-                numberGuess--;
-                wrong.push(ans.guess);
-                console.log('\n Wrong! Sorry! Try Again! \n');
-                console.log(`${numberGuess} Guesses Left! \n`);
-
-            } else {
-                counter++;
-                correct.push(ans.guess);
-                console.log('\n Yay! You got one! \n');
-                console.log(`${numberGuess} Guesses Left! \n`);
+            console.log(ans.guess);
+            if (!letters.includes(ans.guess) || ans.guess.length > 1) {
+                console.log('\n Please Try Again \n');
+                startGame();
+            } else if (lettersChecked.includes(ans.guess) || ans.guess === '') {
+                console.log('\n You already entered that and/or You entered nothing.\n Please Try again. \n');
+                startGame();
             }
+            //check to see if the letter is correct or incorrect
+            else {
+                lettersChecked.push(ans.guess);
+                //puts the letter to the word function
+                newWord.whetherUserGuessed(ans.guess);
+                //checks to see if the letter is in the random word
+                if (!wordGuess.includes(ans.guess)) {
+                    numberGuess--;
+                    wrong.push(ans.guess);
+                    console.log('\n Wrong! Sorry! Try Again! \n');
 
-            newWord.log();
+                } else {
+                    counter++;
+                    console.log(counter);
+                    correct.push(ans.guess);
+                    console.log('\n Yay! You got one! \n');
+                }
+                console.log(`Letters Guessed: ${wrong.join(' ')}`);
 
+
+                if (numberGuess > 0) {
+                    startGame();
+                } else {
+                    console.log('Sorry! You Lose!! \n');
+                    restartGame();
+                }
+            }
+        })
+    } else {
+        console.log(`Congratulations! You Win!!! \n`);
+        restartGame();
+    }
+
+}
+
+function restartGame() {
+    inquire.prompt({
+        name: 'restart',
+        message: 'Would you like to play again?',
+        choices: ["Play Again", 'Exit'],
+        type: 'list'
+    }).then(function (ans) {
+        if (ans.restart === 'Play Again') {
+            numberGuess = 15;
+            lettersChecked = [];
+            counter = 0;
+            wrong = [];
+            needsNewWord = true;
+            startGame();
+        } else {
+            return;
         }
-
-
     })
-
-
 }
