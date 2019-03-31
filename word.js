@@ -6,12 +6,11 @@ function Word(word) {
     let wordStart = word.split('');
     //store the letters in an array
     this.letterLog = [];
-    console.log(wordStart);
     for (let i = 0; i < wordStart.length; i++) {
+        //sends each letter to letter function
         let letter = new Letter(wordStart[i]);
         this.letterLog.push(letter);
     }
-    console.log(this.letterLog);
     this.log = function () {
         //make a space
         let answerSpace = '';
@@ -21,9 +20,10 @@ function Word(word) {
         }
         console.log(answerSpace + '\n');
     }
-
+    //takes the letters that was guessed 
     this.whetherUserGuessed = function (letterGuess) {
         for (let i = 0; i < this.letterLog.length; i++) {
+            //passes the letterGuess to the guess function in letter.js
             this.letterLog[i].guess(letterGuess);
         }
     }
