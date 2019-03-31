@@ -27,7 +27,7 @@ const words = [
 //make the letters only alphabet. no special characters
 let letters = 'abcdefghijklmnopqrstuvwxyz';
 //make a number of guesses
-let numberGuess = 15;
+let numberGuess = 10;
 //checks the letter
 let lettersChecked = [];
 //checks for wrong
@@ -65,8 +65,9 @@ function startGame() {
         needsNewWord === false;
 
     }
-    if (numberGuess > 0 || counter < wordGuess.length) {
+    if ((numberGuess > 0) || (counter < wordGuess.length)) {
         console.log(`${numberGuess} Guesses Left!`);
+        //makes the word show with the letter in place
         newWord.log();
         inquire.prompt([
 
@@ -78,8 +79,6 @@ function startGame() {
 
         ]).then(function (ans) {
             //if the letter has shown up in the guesses
-
-            console.log(ans.guess);
             if (!letters.includes(ans.guess) || ans.guess.length > 1) {
                 console.log('\n Please Try Again \n');
                 startGame();
@@ -100,7 +99,6 @@ function startGame() {
 
                 } else {
                     counter++;
-                    console.log(counter);
                     correct.push(ans.guess);
                     console.log('\n Yay! You got one! \n');
                 }
@@ -110,15 +108,18 @@ function startGame() {
                 if (numberGuess > 0) {
                     startGame();
                 } else {
-                    console.log('Sorry! You Lose!! \n');
+                    console.log(`Sorry! The word was ${wordGuess}!! You Lose!! \n`);
                     restartGame();
                 }
+
             }
+
         })
     } else {
-        console.log(`Congratulations! You Win!!! \n`);
+        console.log(`\n Congratulations! You Win!!! \n`);
         restartGame();
     }
+
 
 }
 
@@ -130,7 +131,7 @@ function restartGame() {
         type: 'list'
     }).then(function (ans) {
         if (ans.restart === 'Play Again') {
-            numberGuess = 15;
+            numberGuess = 10;
             lettersChecked = [];
             counter = 0;
             wrong = [];
